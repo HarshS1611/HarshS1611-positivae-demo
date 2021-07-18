@@ -27,37 +27,15 @@
         <div class="row2"><input name="entry.712437446" type="email" id="email" placeholder="Your email" required style="width: 80%; padding: 10px 10px; margin-left: 10%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;" /> </div>
         <div class="row3"> <input name="entry.362428623"  type="text" id="phone" placeholder="Phone Number" required style="width: 80%; padding: 10px 10px; margin-left: 10%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;" /> </div>
         <div class="row4"><input name="entry.960263963" type="text" id="certlink" placeholder="Your Certificate Link" required style="width: 80%; padding: 10px 10px; margin-left: 10%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;" /></div>
-        <div class="row5"><input  type="text" id="socialid" placeholder="Your LinkdIn Profile" required style="width: 80%; padding: 10px 10px; margin-left: 10%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;" />  </div>
-        <div class="row6">  <input name="entry.450697848" type="submit" value="Submit" id="but" style="width: 30%; padding: 10px 10px; margin-left: 35%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;"/></div>
+        <div class="row5"><input name="entry.450697848" type="text" id="socialid" placeholder="Your LinkdIn Profile" required style="width: 80%; padding: 10px 10px; margin-left: 10%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;" />  </div>
+        <div class="row6">  <button  type="submit" value="Submit" id="but" style="width: 30%; padding: 10px 10px; margin-left: 35%; border-radius: 15px; border: none; outline: none; margin-bottom: 10px;"/> Submit</button></div>
       
     </form>
     </section>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    $("form").on("submit", e => {
-      e.preventDefault();
-      const email = $("#email")
-        .val()
-        .trim();
-      const subject = $("#subject")
-        .val()
-        .trim();
-      const text = "Mobile number:" + $("#phone").val()+ "Your Certificate:" + $("#certlink").val()+" your linkedin profile:" + $("#socialid").val();
-      const data = {
-        email,
-        subject,
-        text
-      };
-
-      $.post("/email", data)
-        .then(() => {
-          window.location.href = "/email/sent";
-        })
-        .catch(() => {
-          window.location.href = "/error";
-        });
-    });
+     
   </script>
 </body>
 

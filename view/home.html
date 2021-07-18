@@ -379,9 +379,8 @@
           </div>
           <div class="mb-3">
             <div class="loading">Loading</div>
-            <div>Your message has been sent. Thank you!</div>
           </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
+          <div class="text-center"><button id="myBtn" type="submit">Send Message</button></div>
         </form>
       </div>
 
@@ -519,6 +518,12 @@
       });
   });
 </script>
+<script>
+  document.getElementById("myBtn").addEventListener("click", function() {
+    event.preventDefault();
+    alert("Message Submitted");
+  });
+  </script>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js "></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js "></script>

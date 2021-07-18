@@ -100,15 +100,8 @@ const setupGuides = (data) => {
          '<div class="entry-footer clearfix">'+
          '<div class="float-left">'+
          '<a href="#"><i class="icofont-ui-delete" id="'+ key +'" onclick="delpost(this.id);"></i></a>'+
-         '<a href="#"><i class="icofont-ui-edit"></i></a>'+  
-          '</div>'
-          '   <div class="entry-footer clearfix">'+
-          '<div class="float-left">  ' +          
-            '<a href="#"><i class="icofont-ui-delete"></i></a>'+
-            '<a href="#"><i class="icofont-ui-edit"></i></a>'+
-          '</div>'+
-
-        '</div>'  +  bl;
+        
+          '</div>' +  bl;
            
          html=bl;
           }

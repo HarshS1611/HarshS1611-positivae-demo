@@ -91,7 +91,7 @@ const setupGuides = (data) => {
             let bl=" ";
             bl = 
             '<div class="entry-img"><img src="'+blog.imageURL+'" alt="" class="img-fluid"> </div>'+
-            ' <h2 class="entry-title"><a href="/food/'+key+'">'+blog.postName+'</a></h2>'+
+            ' <h2 class="entry-title"><a href="/view/travel/'+key+'">'+blog.postName+'</a></h2>'+
           '<div class="entry-meta"><ul>'+
               '<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">'+blog.author+'</a></li>'+
               '<li class="d-flex align-items-center"><i class="icofont-calendar"></i> <a href="blog-single.html"><time datetime="2020-01-01"></time></a></li>'+
@@ -99,15 +99,8 @@ const setupGuides = (data) => {
           '<div class="entry-content"><p>'+blog.postContent+'</p>    </div>'+
           '<div class="entry-footer clearfix">'+
           '<div class="float-left">'+
-          '<a href="#"><i class="icofont-ui-delete"></i></a>           '+
-          '<a href="#"><i class="icofont-ui-edit"></i></a>'+  
-           '</div>'
-           '   <div class="entry-footer clearfix">'+
-           '<div class="float-left">  ' +          
-           '<a href="#"><i class="icofont-ui-delete" id="'+ key +'" onclick="delpost(this.id);"></i></a>'+
-             '<a href="#"><i class="icofont-ui-edit"></i></a>'+
-           '</div>'+
-         '</div>'  +  bl;
+          '<a href="#"><i class="icofont-ui-delete" id="'+ key +'" onclick="delpost(this.id);"></i></a>'+
+           '</div>'  +  bl;
            
          html=bl;
           }
