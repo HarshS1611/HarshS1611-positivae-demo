@@ -5,13 +5,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashbord-trans</title>
+  <title>Dashbord-Calendar</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -27,7 +25,7 @@
   <link rel="stylesheet" type="text/css" href="/css/jquery.convform.css">
 
   <!-- Template Main CSS File -->
-  <link href="/css/usertransc.css" rel="stylesheet">
+  <link href="/css/userappoint.css" rel="stylesheet">
 
 </head>
 
@@ -40,18 +38,17 @@
 
       <div class="logo mr-auto">
        
-        <a href="index.html"><img src="/img/new logo.png" alt="" class="img-fluid"></a>
+        <a href="/index.html"><img src="/img/new logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
 
-
-          <li><a href="#Part1">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li class="drop-down"><a href="#services">Services</a>
             <ul>
-              <li><a href="doctor list/newdoc.html">Book Appointment</a></li>
-            
+              <li><a href="/view/doctorscategory">Book Appointment</a></li>
+           
             </ul>
           </li>
           <li><a href="/view/blog">Blog</a></li>
@@ -62,7 +59,7 @@
           <li><a class="logged-out" href="/view/signup"> Sign Up</a></li>
 
           <li>
-              <a class="logged-in" href="#" id="logout"></i> Logout</a>
+              <a class="logged-in" href="/" id="logout">Logout</a>
           </li>
         </ul>
       </nav>
@@ -71,26 +68,27 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= transition ======= -->
-  <section id="faq" class="faq section-bg">
-    <div class="container">
 
-      <div class="section-title" data-aos="fade-up" style="margin-top: 20px;">
-        <h2>Reviews</h2>
-        
-      </div>
+      <!-- ======= Calendar ======= -->
+      <section id="faq" class="faq section-bg">
+        <div class="container">
+  
+          <div class="section-title" data-aos="fade-up">
+            <h2>Calendar</h2>
+            
+          </div>
+  
+          <div class="faq-list">
+            <ul class="lists"></ul>
+              
+          </div>
+  
+        </div>
+      </section><!-- End trans Section -->
 
-      <div class="faq-list">
-        <ul class="lists">
-          
-
-        </ul>
-      </div>
-
-    </div>
-  </section><!-- End trans Section -->
  
    
+ 
 
 <!--Bot -->
 <div class="chat_icon">
@@ -145,6 +143,7 @@
         });
     });
 </script>
+
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js "></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js "></script>
@@ -156,7 +155,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js "></script>
 
 
-
   <!-- positivae JS Files -->
   <script src="/positivae/jquery/jquery.min.js"></script>
   <script src="/positivae/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -165,7 +163,7 @@
   <script src="/positivae/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="/positivae/owl.carousel/owl.carousel.min.js"></script>
   <script src="/positivae/venobox/venobox.min.js"></script>
-  
+ 
 
   <!--chatbox-->
   <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
@@ -174,7 +172,7 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
-  <script src="/js/docreviews.js"></script>
+  <script src="/js/userappoint.js"></script>
 
 </body>
 

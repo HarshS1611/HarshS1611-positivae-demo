@@ -33,23 +33,41 @@ auth.onAuthStateChanged(user => {
 
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
+const users = document.querySelector('.user');
+const doctors = document.querySelector('.doctor');
 
 
 
 const setupUI = (user) => {
-    if (user) {
+  if (user) {
+    console.log(user.uid);
 
-        // toggle user UI elements
-        loggedInLinks.forEach(item => item.style.display = 'block');
-        loggedOutLinks.forEach(item => item.style.display = 'none');
-       
-    } else {
+   db.collection('users').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'none';
+          doctors.style.display = 'block';
+        }
+        else{
+         
+          users.style.display = 'block';
+          doctors.style.display = 'none';
+        }
+      });
+    });
+    // toggle user UI elements
+    loggedInLinks.forEach(item => item.style.display = 'block');
+    loggedOutLinks.forEach(item => item.style.display = 'none');
 
-        // toggle user elements
-        loggedInLinks.forEach(item => item.style.display = 'none');
-        loggedOutLinks.forEach(item => item.style.display = 'block');
-  
-    }
+  } else {
+
+    // toggle user elements
+    loggedInLinks.forEach(item => item.style.display = 'none');
+    loggedOutLinks.forEach(item => item.style.display = 'block');
+    users.style.display = 'none';
+    doctors.style.display = 'none';
+  }
 };
 const guideList = document.querySelector('.entry');
 const recent = document.querySelector('.recent-posts');

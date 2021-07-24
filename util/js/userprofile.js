@@ -15,20 +15,20 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 auth = firebase.auth();
 const db = firebase.firestore();
-
+//var storage = firebase.storage();
 // update firestore settings
 db.settings({ timestampsInSnapshots: true });
 
 
 auth.onAuthStateChanged(user => {
-  if (user) {
-    console.log("logged in");
-    setupUI(user);
+if (user) {
+  console.log("logged in");
+  setupUI(user);
 
-  } else {
+} else {
     console.log("logged out");
-    setupUI();
-  }
+  setupUI();
+}
 });
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
@@ -68,27 +68,64 @@ const setupUI = (user) => {
     doctors.style.display = 'none';
   }
 };
+const guideList = document.querySelector('.tab-content');
 
-const form = document.getElementById('prescriptions');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let name = form['doctorname'].value;
-  let email = document.getElementById("docemail").value;
-  let address = document.getElementById("address").value;
-  let patientname = document.getElementById("patientname").value;
-  let patientid = document.getElementById("patientid").value;
-  let presc = document.getElementById("prescr").value;
-  console.log(name, email, address , patientid);
 
-  db.collection("doctors").doc(user.uid).collection("Prescriptions").add({
-    doctorname: name,
-    doctoremail: email,
-    address: address,
-    patientname: patientname,
-    patientid: patientid,
-    presc: presc
-
-  });
-  alert("Uploaded");
-
+const doctors = db.collection('users');
+auth.onAuthStateChanged(user => {
+  if (user) {
+      console.log("logged in");
+      doctors.doc(user.uid).onSnapshot(snapshot => {
+          setupGuides(snapshot.docs);
+          
+      }, err => console.log(err.message));     
+      
+  } else {
+      console.log("logged out");
+      setupGuides([]);
+     
+  }
 });
+
+
+// setup guides
+const setupGuides =(data) => {
+if(data.length){
+    let html = '';
+data.forEach(doc => {
+        let blog = doc.data();  
+        let key= doc.id;  
+        console.log(key);   
+        //console.log(blog.postName); 
+        let li='';
+     li = 
+    ` <div class="card-avatar">
+    <a href="">
+      <img class="img" src="/img/WhatsApp ).jpeg" >
+    </a>
+  </div>
+  <div class="card-body">
+            <h4 class="card-title">${blog.name}</h4>
+            <p class="card-description">${blog.email}</p>
+            <p class="card-description">${blog.address}</p>
+            <p class="card-description">${blog.postalcode}</p>
+            <p class="card-description">${blog.city}</p>
+            
+            <p class="card-description">
+            ${blog.aboutme}
+            </p>
+            <a href="/view/docprofileupdate/45" class="btn btn-primary btn-round">Update</a>
+    </div>` +li ;
+    
+  html=li;
+});
+guideList.innerHTML = html;
+//console.log(guideList.innerHTML);
+}
+else{
+    guideList.innerHTML = `<h1 class="center-align">Login to view blogs</h1>`;
+}
+}
+
+
+

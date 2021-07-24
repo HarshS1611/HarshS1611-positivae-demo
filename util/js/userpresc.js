@@ -30,7 +30,6 @@ auth.onAuthStateChanged(user => {
     setupUI();
   }
 });
-
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const users = document.querySelector('.user');
@@ -69,27 +68,22 @@ const setupUI = (user) => {
     doctors.style.display = 'none';
   }
 };
-const guideList = document.querySelector('.entry');
-const recent = document.querySelector('.recent-posts');
+const guideList = document.querySelector('.lists');
 
-var str=window.location.pathname;
-var requrl = str.substring(13,);
-console.log(requrl);
 
 
 auth.onAuthStateChanged(user => {
     if (user) {
         console.log("logged in");
-        
-        db.collection("bloghumour").onSnapshot(snapshot => {
+        db.collection("users").doc(user.uid).collection("Prescription").onSnapshot(snapshot => {
             setupGuides(snapshot.docs);
-            recentpost(snapshot.docs);
+            
         }, err => console.log(err.message));     
         
     } else {
         console.log("logged out");
         setupGuides([]);
-        recentpost([]);
+       
     }
 });
 
@@ -98,59 +92,22 @@ auth.onAuthStateChanged(user => {
 const setupGuides = (data) => {
   if(data.length){
       let html = '';
-   data.forEach(doc => {
-          let blog = doc.data();  
-          let key= doc.id;  
-          //console.log(key);   
-          //console.log(blog.postName); 
-          if(key==requrl)
-          {
-            let bl=" ";
-            bl = 
-            '<div class="entry-img"><img src="'+blog.imageURL+'" alt="" class="img-fluid"> </div>'+
-            ' <h2 class="entry-title"><a href="/view/humour/'+key+'">'+blog.postName+'</a></h2>'+
-          '<div class="entry-meta"><ul>'+
-              '<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">'+blog.author+'</a></li>'+
-              '<li class="d-flex align-items-center"><i class="icofont-calendar"></i> <a href="blog-single.html"><time datetime="2020-01-01"></time></a></li>'+
-             '</ul></div>'+
-          '<div class="entry-content"><p>'+blog.postContent+'</p>    </div>'+
-          '<div class="entry-footer clearfix">'+
-          '<div class="float-left">'+
-          '<a href="#"><i class="icofont-ui-delete" id="'+ key +'" onclick="delpost(this.id);"></i></a>'+
-       
-           '</div>' +  bl;
-           
-         html=bl;
-          }
-         
-  });
-  guideList.innerHTML = html;
-  console.log(guideList.innerHTML);
-  }
-  else{
-      guideList.innerHTML = `<h1 class="center-align">Login to view blogs</h1>`;
-  }
-}
-
-const recentpost = (data) => {
-  if(data.length){
-      let html = '';
   data.forEach(doc => {
           let blog = doc.data();  
           let key= doc.id;  
-          //console.log(key);   
+          console.log(key);   
           //console.log(blog.postName); 
-          let bl=" ";
-       bl = 
-      '<div class="post-item clearfix">'+
-      '<img src="'+blog.imageURL+'" alt="">'+
-      '<h4><a href="/view/humour/'+key+'">'+blog.postName+'</a></h4>'+
-      '<time datetime="2020-01-01">Jan 1, 2020</time>'+
-    '</div>'  +  bl;
+          let li='';
+       li = 
+      ` <li data-aos="fade-up">
+      <i class="icofont-calendar icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">${blog.doctorname} &nbsp; &nbsp; ${blog.name} &nbsp; &nbsp; <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+      <div id="faq-list-1" class="collapse show" data-parent=".faq-list"
+       <p>${blog.suggestion} </p>
+       </div></li>` +li ;
       
-    html+=bl;
+    html+=li;
   });
-  recent.innerHTML = html;
+  guideList.innerHTML = html;
   //console.log(guideList.innerHTML);
   }
   else{
@@ -158,11 +115,5 @@ const recentpost = (data) => {
   }
 }
 
-    function delpost(key){
-    db.collection("bloghumour").doc(key).delete().then(() => {
-      alert("Document successfully deleted!");
-    }).catch((error) => {
-      console.error("Error removing document: ", error);
-    });
-    
-    }
+
+

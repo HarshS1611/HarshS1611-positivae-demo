@@ -7,18 +7,18 @@ signedup.addEventListener('submit', event => {
   const password = signedup['signup-pass'].value;
 
 
-  auth.createUserWithEmailAndPassword(email, password).then(cred => {
-    alert("Signed up successfully");
-    signedup.reset();
-    window.location.href = '/';
+  auth.createUserWithEmailAndPassword(email, password).then(cred => {  
     return db.collection('users').doc(cred.user.uid).set({
       username: username,
-      email: email
+      email: email 
     });
   }).catch(err => {
     console.log(err);
     alert(err.message);
-  });
+  }); 
+  alert("Signed up successfully");
+  signedup.reset();
+ // window.location.href = '/';
 });
 
 //sign in with Google
