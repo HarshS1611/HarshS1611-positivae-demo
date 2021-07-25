@@ -41,18 +41,47 @@ const setupUI = (user) => {
   if (user) {
     console.log(user.uid);
 
-   db.collection('users').onSnapshot(querySnapshot => {
+    db.collection('users').onSnapshot(querySnapshot => {
       querySnapshot.docChanges().forEach(change => {
-        if(change.doc.id == user.uid){
+        if (change.doc.id == user.uid) {
           console.log(change.doc.id);
-          users.style.display = 'none';
-          doctors.style.display = 'block';
-        }
-        else{
-         
           users.style.display = 'block';
           doctors.style.display = 'none';
         }
+
+      });
+    });
+    db.collection('doctors').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if (change.doc.id == user.uid) {
+          console.log(change.doc.id);
+          users.style.display = 'none';
+          doctors.style.display = 'block';
+          const form = document.getElementById('prescriptions');
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let name = form['doctorname'].value;
+            let email = document.getElementById("docemail").value;
+            let address = document.getElementById("address").value;
+            let patientname = document.getElementById("patientname").value;
+            let patientid = document.getElementById("patientid").value;
+            let presc = document.getElementById("prescr").value;
+            console.log(name, email, address, patientid);
+
+            db.collection("doctors").doc('dlXyc5IEOHfYYqOQsFWQrs4nEtJ2').collection("Prescriptions").set({
+              doctorname: name,
+              doctoremail: email,
+              address: address,
+              patientname: patientname,
+              patientid: patientid,
+              presc: presc
+
+            });
+            alert("Uploaded");
+
+          });
+        }
+
       });
     });
     // toggle user UI elements
@@ -69,26 +98,3 @@ const setupUI = (user) => {
   }
 };
 
-const form = document.getElementById('prescriptions');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let name = form['doctorname'].value;
-  let email = document.getElementById("docemail").value;
-  let address = document.getElementById("address").value;
-  let patientname = document.getElementById("patientname").value;
-  let patientid = document.getElementById("patientid").value;
-  let presc = document.getElementById("prescr").value;
-  console.log(name, email, address , patientid);
-
-  db.collection("doctors").doc(user.uid).collection("Prescriptions").add({
-    doctorname: name,
-    doctoremail: email,
-    address: address,
-    patientname: patientname,
-    patientid: patientid,
-    presc: presc
-
-  });
-  alert("Uploaded");
-
-});

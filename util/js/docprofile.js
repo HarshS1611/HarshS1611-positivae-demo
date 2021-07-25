@@ -23,6 +23,26 @@ db.settings({ timestampsInSnapshots: true });
 auth.onAuthStateChanged(user => {
   if (user) {
     console.log("logged in");
+    db.collection('users').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'block';
+          doctors.style.display = 'none';
+        }
+       
+      });
+    });
+    db.collection('doctors').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'none';
+          doctors.style.display = 'block';
+        }
+        
+      });
+    });
     setupUI(user);
 
   } else {
@@ -40,22 +60,7 @@ const doctors = document.querySelector('.doctor');
 
 const setupUI = (user) => {
   if (user) {
-    console.log(user.uid);
-
-   db.collection('users').onSnapshot(querySnapshot => {
-      querySnapshot.docChanges().forEach(change => {
-        if(change.doc.id == user.uid){
-          console.log(change.doc.id);
-          users.style.display = 'none';
-          doctors.style.display = 'block';
-        }
-        else{
-         
-          users.style.display = 'block';
-          doctors.style.display = 'none';
-        }
-      });
-    });
+   
     // toggle user UI elements
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
@@ -72,11 +77,12 @@ const setupUI = (user) => {
 const guideList = document.querySelector('.tab-content');
 
 
-const doctors = db.collection('doctors');
+const doctor = db.collection('doctors');
 auth.onAuthStateChanged(user => {
     if (user) {
         console.log("logged in");
-        doctors.doc(user.uid).onSnapshot(snapshot => {
+        console.log(user.uid)
+        doctor.onSnapshot(snapshot => {
             setupGuides(snapshot.docs);
             
         }, err => console.log(err.message));     
@@ -96,7 +102,7 @@ const setupGuides =(data) => {
   data.forEach(doc => {
           let blog = doc.data();  
           let key= doc.id;  
-          console.log(key);   
+          //console.log(key);   
           //console.log(blog.postName); 
           let li='';
        li = 

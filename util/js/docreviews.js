@@ -42,18 +42,24 @@ const setupUI = (user) => {
   if (user) {
     console.log(user.uid);
 
-   db.collection('users').onSnapshot(querySnapshot => {
+    db.collection('users').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'block';
+          doctors.style.display = 'none';
+        }
+        
+      });
+    });
+    db.collection('doctors').onSnapshot(querySnapshot => {
       querySnapshot.docChanges().forEach(change => {
         if(change.doc.id == user.uid){
           console.log(change.doc.id);
           users.style.display = 'none';
           doctors.style.display = 'block';
         }
-        else{
-         
-          users.style.display = 'block';
-          doctors.style.display = 'none';
-        }
+        
       });
     });
     // toggle user UI elements
@@ -76,7 +82,7 @@ const guideList = document.querySelector('.lists');
 auth.onAuthStateChanged(user => {
     if (user) {
         console.log("logged in");
-        db.collection("doctors").doc("iG1FCrAy7T5FN6bFRDkV").collection("Reviews").onSnapshot(snapshot => {
+        db.collection("doctors").doc("dlXyc5IEOHfYYqOQsFWQrs4nEtJ2").collection("Reviews").onSnapshot(snapshot => {
             setupGuides(snapshot.docs);
             
         }, err => console.log(err.message));     

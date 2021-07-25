@@ -35,7 +35,7 @@ auth.onAuthStateChanged(user => {
             let aboutme = document.getElementById("aboutme").value;
             console.log(name, email, address);
 
-            db.collection("doctors").doc(user.uid).add({
+            db.collection("doctors").doc(user.uid).set({
                 Name: name,
                 email: email,
                 address: address,

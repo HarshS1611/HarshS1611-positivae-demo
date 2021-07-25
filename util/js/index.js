@@ -51,14 +51,20 @@ const setupUI = (user) => {
       querySnapshot.docChanges().forEach(change => {
         if(change.doc.id == user.uid){
           console.log(change.doc.id);
-          users.style.display = 'none';
-          doctors.style.display = 'block';
-        }
-        else{
-         
           users.style.display = 'block';
           doctors.style.display = 'none';
         }
+        
+      });
+    });
+    db.collection('doctors').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'none';
+          doctors.style.display = 'block';
+        }
+        
       });
     });
     // toggle user UI elements

@@ -22,12 +22,18 @@ db.settings({ timestampsInSnapshots: true });
 
 auth.onAuthStateChanged(user => {
   if (user) {
-    console.log("logged in");
-    setupUI(user);
-
+      console.log("logged in");
+      setupUI(user);
+      db.collection("doctors").doc('dlXyc5IEOHfYYqOQsFWQrs4nEtJ2').collection("Appointments").onSnapshot(snapshot => {
+          setupGuides(snapshot.docs);
+          
+      }, err => console.log(err.message));     
+      
   } else {
       console.log("logged out");
-    setupUI();
+      setupUI([]);
+      setupGuides([]);
+     
   }
 });
 
@@ -42,18 +48,24 @@ const setupUI = (user) => {
   if (user) {
     console.log(user.uid);
 
-   db.collection('users').onSnapshot(querySnapshot => {
+    db.collection('users').onSnapshot(querySnapshot => {
+      querySnapshot.docChanges().forEach(change => {
+        if(change.doc.id == user.uid){
+          console.log(change.doc.id);
+          users.style.display = 'block';
+          doctors.style.display = 'none';
+        }
+        
+      });
+    });
+    db.collection('doctors').onSnapshot(querySnapshot => {
       querySnapshot.docChanges().forEach(change => {
         if(change.doc.id == user.uid){
           console.log(change.doc.id);
           users.style.display = 'none';
           doctors.style.display = 'block';
         }
-        else{
-         
-          users.style.display = 'block';
-          doctors.style.display = 'none';
-        }
+        
       });
     });
     // toggle user UI elements
@@ -73,20 +85,6 @@ const guideList = document.querySelector('.lists');
 
 
 
-auth.onAuthStateChanged(user => {
-    if (user) {
-        console.log("logged in");
-        db.collection("doctors").doc(user.uid).collection("Appointments").onSnapshot(snapshot => {
-            setupGuides(snapshot.docs);
-            
-        }, err => console.log(err.message));     
-        
-    } else {
-        console.log("logged out");
-        setupGuides([]);
-       
-    }
-});
 
 
 // setup guides
