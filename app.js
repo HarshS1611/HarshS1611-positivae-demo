@@ -72,6 +72,16 @@ app.get('/view/travel/:postName',(req, res) =>{
     
     res.sendFile(__dirname + '/view/blogtravelmain.html')
 })
+app.get('/view/other',(req, res) =>{
+    
+    
+    res.sendFile(__dirname + '/view/blogother.html')
+})
+app.get('/view/other/:postName',(req, res) =>{
+    
+    
+    res.sendFile(__dirname + '/view/blogothermain.html')
+})
 app.get('/view/doctorscategory',(req, res) =>{
     res.sendFile(__dirname + '/view/Departments.html')
 })

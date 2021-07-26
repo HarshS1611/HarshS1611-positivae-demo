@@ -46,26 +46,7 @@ const setupUI = (user) => {
   if (user) {
     console.log(user.uid);
 
-    db.collection('users').onSnapshot(querySnapshot => {
-        querySnapshot.docChanges().forEach(change => {
-          if(change.doc.id == user.uid){
-            console.log(change.doc.id);
-            users.style.display = 'block';
-            doctors.style.display = 'none';
-          }
-          
-        });
-      });
-      db.collection('doctors').onSnapshot(querySnapshot => {
-        querySnapshot.docChanges().forEach(change => {
-          if(change.doc.id == user.uid){
-            console.log(change.doc.id);
-            users.style.display = 'none';
-            doctors.style.display = 'block';
-          }
-          
-        });
-      });
+    
     // toggle user UI elements
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
@@ -129,8 +110,8 @@ function upload() {
                             category: category,
                             imageURL: downloadURL
                         });
-                    alert("Uploaded");
-                    //window.location.href = 'https://positivae.com/blog%20type%20technology/blogtype.html';
+                    console.log("Uploaded");
+                   // window.location.href = '/view/tech';
 
                 }
                 if (category == "2") {
@@ -143,8 +124,8 @@ function upload() {
                             category: category,
                             imageURL: downloadURL
                         });
-                    alert("Uploaded");
-                    //window.location.href = 'https://positivae.com/blog%20type%20food/blogtype.html';
+                        console.log("Uploaded");
+                        //window.location.href = '/view/food';
                 }
                 if (category == "4") {
                     db.collection("bloghumour")
@@ -156,9 +137,8 @@ function upload() {
                             category: category,
                             imageURL: downloadURL
                         });
-                    alert("Uploaded");
-                    //res.redirect('/view/bloghumour');
-                    //window.location.href = 'https://positivae.com/blog%20type%20humour/blogtype.html';
+                        console.log("Uploaded");
+                        //window.location.href = '/view/blog';
                 }
                 if (category == "3") {
                     db.collection("blogtravel")
@@ -170,13 +150,13 @@ function upload() {
                             category: category,
                             imageURL: downloadURL
                         });
-                    alert("Uploaded");
-                    //window.location.href = 'https://positivae.com/blog%20type%20travel/blogtype.html';
+                        console.log("Uploaded");
+                       // window.location.href = '/view/travel';
                 }
 
             };
 
-
+           // window.location.href = '/view/blog';
 
 
         });
